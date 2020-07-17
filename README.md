@@ -11,7 +11,7 @@ Thats it.
 # Installation
 For [vim-plug](https://github.com/junegunn/vim-plug)
 include the following in .vimrc
-> Plug 'Tinkergod/vim-fountain-tools' 
+> Plug 'Tinkergod/vim-fountain-tools', {'for': 'fountain'}
 
 Run
 > :PlugInstall
