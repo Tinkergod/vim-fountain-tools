@@ -1,6 +1,6 @@
 function! AddNote()
   call inputsave()
-  let note=input("Add note:")
+  let note=input("Add note: ")
   call inputrestore()
   if note != ""
     execute ":normal! a[[".note."]]"
@@ -10,7 +10,7 @@ nnoremap <leader>n :call AddNote()<CR>
 
 function! AddCenteredText()
   call inputsave()
-  let centered_text=input("Add centered text:")
+  let centered_text=input("Add centered text: ")
   call inputrestore()
   if centered_text != ""
     execute ":normal! a>".centered_text."<"
