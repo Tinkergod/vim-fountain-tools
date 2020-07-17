@@ -3,7 +3,7 @@ function! AddNote()
   let note=input("Add note:")
   call inputrestore()
   if note != ""
-    execute ":normal! i[[".note."]]"
+    execute ":normal! a[[".note."]]"
   endif
 endfunction
 nnoremap <leader>n :call AddNote()<CR>
@@ -13,7 +13,7 @@ function! AddCenteredText()
   let centered_text=input("Add centered text:")
   call inputrestore()
   if centered_text != ""
-    execute ":normal! i>".centered_text."<"
+    execute ":normal! a>".centered_text."<"
   endif
 endfunction
 nnoremap <leader>c :call AddCenteredText()<CR>
@@ -23,7 +23,7 @@ function! AddParanthetical()
   let content=input("Add paranthetical:")
   call inputrestore()
   if content != ""
-    execute ":normal! i(".content.")"
+    execute ":normal! a(".content.")"
   endif
 endfunction
 nnoremap <leader>p :call AddParanthetical()<CR>
@@ -91,6 +91,16 @@ function! FountainElementFormatter()
     let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
     exec ":s/".line."/".line_upper_case
     exec ":normal $"
+  elseif line =~ '^\..*$'
+    let line_upper_case=toupper(line)
+    exec ":s/".line."/".line_upper_case
+    exec ":normal $"
+
   endif
 endfunction
 inoremap <silent> <CR> <C-o>:call FountainElementFormatter()<CR><CR>
+
+inoremap <silent> NN <Esc>:call AddNote()<CR>A
+inoremap <silent> CC <Esc>:call AddCenteredText()<CR>A
+inoremap <silent> PP <Esc>:call AddParanthetical()<CR>A
+

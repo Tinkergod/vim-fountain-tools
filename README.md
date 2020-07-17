@@ -1,6 +1,6 @@
 This is my first vim plugin.
 # vim-fountain-tools
-This is a small vim plugin I've created to help with writing a screenplay using fountain syntax.
+This is a small vim plugin I've created to help with writing a screenplay using [fountain](https://fountain.io/) syntax.
 
 # Features
 * Auto capitalization of screenplay elements.
@@ -17,15 +17,23 @@ Run
 > :PlugInstall
 
 # The keybindings
+## In normal mode.
+
 * _leader+n_ for adding notes.
 * _leader+c_ for centered text.
 * _leader+p_ for parentheticals.(probably easier just physically press keys)
 
+## In insert mode.
+
+* _Shift+nn_ for adding a note.
+* _Shift+cc_ for adding centered text.
+* _Shift+pp_ for adding parentheticals.
+
 # Todo
 - [ ] Fix all problems associated with inserting special regex characters between scene elements.
 - [ ] Create a keyboard shortcut for adding a title page or perhaps add one to the beginning of the file automatically if it doesn't exist.
-- [ ] afterwriting program integration.
-- [ ] Make it easier to add notes and center text from insert mode.
+- [ ] afterwriting program integration for live view of screenplay.
+- [ ] Make it easy to remap keybindings.
 
 If you find bugs create an issue or solve it and pull request.
 
