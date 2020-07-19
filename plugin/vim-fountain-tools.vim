@@ -95,7 +95,18 @@ function! FountainElementFormatter()
     let line_upper_case=toupper(line)
     exec ":s/".line."/".line_upper_case
     exec ":normal $"
-
+  elseif line =~ '^fade in:$'
+    let line_upper_case=toupper(line)
+    exec ":s/".line."/".line_upper_case
+    exec ":normal $"
+  elseif line =~ '^fade out:$'
+    let line_upper_case=toupper(line)
+    exec ":s/".line."/".line_upper_case
+    exec ":normal $"
+  elseif line =~ '^.* cut:$'
+    let line_upper_case=toupper(line)
+    exec ":s/".line."/".line_upper_case
+    exec ":normal $"
   endif
 endfunction
 inoremap <silent> <CR> <C-o>:call FountainElementFormatter()<CR><CR>
@@ -103,4 +114,3 @@ inoremap <silent> <CR> <C-o>:call FountainElementFormatter()<CR><CR>
 inoremap <silent> NN <Esc>:call AddNote()<CR>A
 inoremap <silent> CC <Esc>:call AddCenteredText()<CR>A
 inoremap <silent> PP <Esc>:call AddParanthetical()<CR>A
-
