@@ -1,3 +1,16 @@
+function! CopyDeleteAllText()
+  execute ":normal! gg"
+  execute ":normal! dG"
+endfunction
+nnoremap <leader><Del> :call CopyDeleteAllText()<CR>
+
+function! MakeIntoNote()
+  let note_content=getline('.')
+  execute ":normal! 0i[[".note_content."]]\n"
+  execute ":normal! dd"
+endfunction
+nnoremap <leader>rn :call MakeIntoNote()<CR>
+
 function! AddNote()
   call inputsave()
   let note=input("Add note: ")
@@ -7,6 +20,15 @@ function! AddNote()
   endif
 endfunction
 nnoremap <leader>n :call AddNote()<CR>
+
+function! AddBlankWordNote()
+  call inputsave()
+  let note=input("Add blank word note: ")
+  call inputrestore()
+  if note != ""
+    execute ":normal! a**blank**[[".note."]]"
+  endif
+endfunction
 
 function! AddCenteredText()
   call inputsave()
@@ -67,13 +89,25 @@ function! FountainElementFormatter()
     let line_upper_case=toupper(line)
     exec ":s/".line."/".line_upper_case
     exec ":normal $"
-  elseif line =~ '^int\.\?/ext .* - night.*$'
+  elseif line =~ '^int/ext\. .* - night.*$'
     let line_upper_case=toupper(line)
     let line=substitute(line, '\/', '\\\/', "")
     let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
     exec ":s/".line."/".line_upper_case
     exec ":normal $"
-  elseif line =~ '^int\.\?/ext .* - day.*$'
+  elseif line =~ '^int/ext\. .* - day.*$'
+    let line_upper_case=toupper(line)
+    let line=substitute(line, '\/', '\\\/', "")
+    let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
+    exec ":s/".line."/".line_upper_case
+    exec ":normal $"
+  elseif line =~ '^ext/int\. .* - night.*$'
+    let line_upper_case=toupper(line)
+    let line=substitute(line, '\/', '\\\/', "")
+    let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
+    exec ":s/".line."/".line_upper_case
+    exec ":normal $"
+  elseif line =~ '^ext/int\. .* - day.*$'
     let line_upper_case=toupper(line)
     let line=substitute(line, '\/', '\\\/', "")
     let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
@@ -114,3 +148,5 @@ inoremap <silent> <CR> <C-o>:call FountainElementFormatter()<CR><CR>
 inoremap <silent> NN <Esc>:call AddNote()<CR>A
 inoremap <silent> CC <Esc>:call AddCenteredText()<CR>A
 inoremap <silent> PP <Esc>:call AddParanthetical()<CR>A
+inoremap <silent> < <Esc>:call AddBlankWordNote()<CR>A
+inoremap <silent> > ...

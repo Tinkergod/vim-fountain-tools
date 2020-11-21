@@ -4,7 +4,7 @@ This is a small vim plugin I've created to help with writing a screenplay using 
 
 # Features
 * Auto capitalization of screenplay elements.
-* Quick shortcuts for adding notes, parentheticals, and centered text
+* Quick shortcuts for adding notes, parentheticals, and centered text.
 
 Thats it.
 
@@ -34,6 +34,7 @@ Run
 - [ ] Create a keyboard shortcut for adding a title page or perhaps add one to the beginning of the file automatically if it doesn't exist.
 - [ ] afterwriting program integration for live view of screenplay.
 - [ ] Make it easy to remap keybindings.
+
 
 If you find bugs create an issue or solve it and pull request.
 
