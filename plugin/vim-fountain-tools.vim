@@ -16,7 +16,7 @@ function! AddNote()
   let note=input("Add note: ")
   call inputrestore()
   if note != ""
-    execute ":normal! a[[".note."]]"
+    execute ":normal! o[[".note."]]"
   endif
 endfunction
 nnoremap <leader>n :call AddNote()<CR>
@@ -45,7 +45,7 @@ function! AddParanthetical()
   let content=input("Add paranthetical:")
   call inputrestore()
   if content != ""
-    execute ":normal! a(".content.")"
+    execute ":normal! o(".content.")"
   endif
 endfunction
 nnoremap <leader>p :call AddParanthetical()<CR>
@@ -65,84 +65,38 @@ nnoremap <leader><S-n> :call DeleteNote()<CR>
 
 function! FountainElementFormatter()
   let line=getline('.')
-  if line =~ '^[0-9a-z]\+\( (.*)\)\?\( \^\)\?$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^.* to:$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^int\. .* - day.*$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^ext\. .* - day.*$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^int\. .* - night.*$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^ext\. .* - night.*$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^int/ext\. .* - night.*$'
-    let line_upper_case=toupper(line)
-    let line=substitute(line, '\/', '\\\/', "")
-    let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^int/ext\. .* - day.*$'
-    let line_upper_case=toupper(line)
-    let line=substitute(line, '\/', '\\\/', "")
-    let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^ext/int\. .* - night.*$'
-    let line_upper_case=toupper(line)
-    let line=substitute(line, '\/', '\\\/', "")
-    let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^ext/int\. .* - day.*$'
-    let line_upper_case=toupper(line)
-    let line=substitute(line, '\/', '\\\/', "")
-    let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^i/e .* - day.*$'
-    let line_upper_case=toupper(line)
-    let line=substitute(line, '\/', '\\\/', "")
-    let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^i/e .* - night.*$'
-    let line_upper_case=toupper(line)
-    let line=substitute(line, '\/', '\\\/', "")
-    let line_upper_case=substitute(line_upper_case, '\/', '\\\/', "")
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^\..*$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^fade in:$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^fade out:$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
-  elseif line =~ '^.* cut:$'
-    let line_upper_case=toupper(line)
-    exec ":s/".line."/".line_upper_case
-    exec ":normal $"
+  let line_upper_case=toupper(line)
+  if col(".")==col("$")-1
+    if line =~ '^$'
+    elseif line =~ '\v^.*(\.|\?|\!|(--))+$'
+      let line_replacement=line_upper_case[0].line[1:]
+      exec ":s/".line."/".line_replacement.'\r'
+      exec ":normal $"
+    elseif line =~ '\v^\(.*\)$'
+      exec ":s/".line."/".line
+      exec ":normal $"
+    elseif line =~ '\v^\[\[.*\]\]$'
+    elseif line =~ '^@.*'
+      exec ":s/".line."/".line_upper_case
+      exec ":normal $"
+    elseif line =~ '\v^.*:$'
+      exec ":s/".line."/".line_upper_case.'\r'
+      exec ":normal $"
+    elseif line =~ '\v^.*( \^)$'
+      exec ":s/.*/".line_upper_case.'\r'
+      exec ":normal $"
+    elseif line =~ '\v^.*(\s-\s).*$'
+      exec ":s/".line."/".line_upper_case.'\r'
+      exec ":normal $"
+    else
+      exec ":s/".line."/".line_upper_case
+      exec ":normal $"
+    endif
+  else
+    call feedkeys("\<C-R>\<ESC>")
   endif
 endfunction
+
 inoremap <silent> <CR> <C-o>:call FountainElementFormatter()<CR><CR>
 
 inoremap <silent> NN <Esc>:call AddNote()<CR>A
