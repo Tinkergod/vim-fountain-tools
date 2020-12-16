@@ -1,3 +1,8 @@
+set t_Co=256
+set background=light
+colorscheme PaperColor
+execute ":AutoSaveToggle"
+
 function! CopyDeleteAllText()
   execute ":normal! gg"
   execute ":normal! dG"
@@ -103,5 +108,5 @@ inoremap <silent> NN <Esc>:call AddNote()<CR>A
 inoremap <silent> CC <Esc>:call AddCenteredText()<CR>A
 inoremap <silent> PP <Esc>:call AddParanthetical()<CR>A
 inoremap <silent> < <Esc>:call AddBlankWordNote()<CR>A
-inoremap <silent> > ...
-inoremap <silent> --- —
+inoremap <M-.> ...
+inoremap <M--> —
