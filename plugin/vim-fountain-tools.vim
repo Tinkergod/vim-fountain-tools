@@ -75,26 +75,26 @@ function! FountainElementFormatter()
     if line =~ '^$'
     elseif line =~ '\v^.*(\.|\?|\!|(--))+$'
       let line_replacement=line_upper_case[0].line[1:]
-      exec ":s/".line."/".line_replacement.'\r'
+      exec ":s#".line."#".line_replacement.'\r'
       exec ":normal $"
     elseif line =~ '\v^\(.*\)$'
-      exec ":s/".line."/".line
+      exec ":s#".line."#".line
       exec ":normal $"
     elseif line =~ '\v^\[\[.*\]\]$'
     elseif line =~ '^@.*'
-      exec ":s/".line."/".line_upper_case
+      exec ":s#".line."#".line_upper_case
       exec ":normal $"
     elseif line =~ '\v^.*:$'
-      exec ":s/".line."/".line_upper_case.'\r'
+      exec ":s#".line."#".line_upper_case.'\r'
       exec ":normal $"
     elseif line =~ '\v^.*( \^)$'
-      exec ":s/.*/".line_upper_case.'\r'
+      exec ":s#.*#".line_upper_case.'\r'
       exec ":normal $"
     elseif line =~ '\v^.*(\s-\s).*$'
-      exec ":s/".line."/".line_upper_case.'\r'
+      exec ":s#".line."#".line_upper_case.'\r'
       exec ":normal $"
     else
-      exec ":s/".line."/".line_upper_case
+      exec ":s#".line."#".line_upper_case
       exec ":normal $"
     endif
   else
