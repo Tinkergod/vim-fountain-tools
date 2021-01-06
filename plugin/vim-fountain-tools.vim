@@ -1,7 +1,11 @@
-set t_Co=256
-set background=light
-colorscheme PaperColor
-execute ":AutoSaveToggle"
+" set t_Co=256
+" set background=light
+" colorscheme PaperColor
+" execute ":AutoSaveToggle"
+
+function! CapatalizePreviousWord()
+  execute ":normal! gUiW"
+endfunction
 
 function! CopyDeleteAllText()
   execute ":normal! gg"
@@ -21,7 +25,7 @@ function! AddNote()
   let note=input("Add note: ")
   call inputrestore()
   if note != ""
-    execute ":normal! o[[".note."]]"
+    execute ":normal! a[[".note."]]"
   endif
 endfunction
 nnoremap <leader>n :call AddNote()<CR>
@@ -50,7 +54,7 @@ function! AddParanthetical()
   let content=input("Add paranthetical:")
   call inputrestore()
   if content != ""
-    execute ":normal! o(".content.")"
+    execute ":normal! a(".content.")"
   endif
 endfunction
 nnoremap <leader>p :call AddParanthetical()<CR>
@@ -110,3 +114,5 @@ inoremap <silent> PP <Esc>:call AddParanthetical()<CR>A
 inoremap <silent> < <Esc>:call AddBlankWordNote()<CR>A
 inoremap <M-.> ...
 inoremap <M--> —
+inoremap <silent> <M-u> <Esc>:call CapatalizePreviousWord()<CR>Ea
+noremap <silent> <M-u> <Esc>:call CapatalizePreviousWord()<CR>E
